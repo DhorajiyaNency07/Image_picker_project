@@ -13,6 +13,7 @@ class ImagePickerScreen extends StatefulWidget {
 
 class _ImagePickerScreenState extends State<ImagePickerScreen> {
   File? image;
+
   Future pickImage(ImageSource source) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
@@ -21,17 +22,14 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
       setState(() {
         this.image = imageTemporary;
       });
-    }
-    on PlatformException catch (e) {
-      print("Failed to pick image $e");
+    } on PlatformException catch (e) {
+      Text("Failed to pick image $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    double textSize = MediaQuery.textScaleFactorOf(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -52,16 +50,16 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                         color: Colors.black12,
                         child: image != null
                             ? Image.file(
-                          image!,
-                          height: 150,
-                          width: 150,
-                          fit: BoxFit.cover,
-                        )
+                                image!,
+                                height: 150,
+                                width: 150,
+                                fit: BoxFit.cover,
+                              )
                             : const Icon(
-                          Icons.person,
-                          size: 60,
-                          color: Colors.grey,
-                        ),
+                                Icons.person,
+                                size: 60,
+                                color: Colors.grey,
+                              ),
                       ),
                     ),
                     GestureDetector(
@@ -79,7 +77,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                               height: 100,
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   ElevatedButton(
                                     onPressed: () =>
@@ -93,7 +91,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                                       pickImage(ImageSource.gallery);
                                     },
                                     child: const Text(
-                                      "gallary",
+                                      "gallery",
                                     ),
                                   ),
                                 ],
